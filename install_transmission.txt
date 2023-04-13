@@ -1,0 +1,30 @@
+# Install required packages
+#===============#===========
+opkg update
+opkg install transmission-daemon
+opkg install transmission-cli
+opkg install transmission-web
+opkg install transmission-remote
+opkg install luci-app-transmission
+
+# To enable transmission
+#===============#=========
+uci set transmission.@transmission[0].enabled="1"
+uci commit transmission
+/etc/init.d/transmission restart
+
+# Advanced setup
+#============#=====
+option rpc_username ''
+option rpc_password ''
+option rpc_port 9091
+option rpc_host_whitelist '*.*.*.*'
+option rpc_authentication_required 'true'
+
+# Restart service
+#===========#===========#======
+/etc/init.d/transmission restart
+
+# Start service at boot
+#========#========#=====
+/etc/init.d/transmission enable
